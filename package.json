@@ -1,35 +1,31 @@
 {
-  "name": "grunt-redefine",
+  "name": "grunt-re-define",
   "description": "anything to anything converter",
   "version": "0.1.0",
-  "homepage": "https://github.com/damianbaar/grunt-redefine",
+  "homepage": "https://github.com/damianbaar/grunt-re-define",
   "author": {
     "name": "Damian Baar",
     "email": "damian.baar@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/damianbaar/grunt-redefine.git"
+    "url": "git://github.com/damianbaar/grunt-re-define.git"
   },
   "bugs": {
-    "url": "https://github.com/damianbaar/grunt-redefine/issues"
+    "url": "https://github.com/damianbaar/grunt-re-define/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/damianbaar/grunt-redefine/blob/master/LICENSE-MIT"
+      "url": "https://github.com/damianbaar/grunt-re-define/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "^0.9.2",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-nodeunit": "^0.3.3",
     "grunt": "~0.4.5"
   },
   "peerDependencies": {
@@ -39,9 +35,9 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "re-define": "0.0.2",
+    "re-define": "^0.0.3",
     "grunt": "^0.4.5",
-    "underscore": "^1.6.0",
-    "through2": "^0.4.1"
+    "through2": "^0.4.1",
+    "lodash": "^2.4.1"
   }
 }

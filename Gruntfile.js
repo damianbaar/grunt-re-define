@@ -12,7 +12,7 @@ module.exports = function(grunt) {
           , "namespace": "ns"
           , "dependencies":
             { "resolve": 
-              { "^(css\/?)*!": "css"
+              { "^(css\/?)*!": "skip:css"
               , "^(domReady\/?)!": "skip" }
             , "references": 
               { "jquery": "$"
