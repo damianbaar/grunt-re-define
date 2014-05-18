@@ -1,5 +1,5 @@
 var redefine    = require('re-define')
-  , _           = require('underscore')
+  , _           = require('lodash')
   , fs          = require('fs')
   , path        = require('path')
   , writeStream = _.compose(fs.createWriteStream, path.resolve)
@@ -10,17 +10,12 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('redefine', 'anything to anything converter', function() {
     var done = this.async()
-      , config = this.data.config
+      , config = _.merge(this.data.config, this.options())
 
     var source = readStream(config.base, config.main)
       , output = writeStream(path.resolve(config.output))
 
     config = redefine.config(config)
-
-     output.on('data', function() {
-        console.log('finish')
-        done()
-      })
 
     source
       .pipe(redefine.convert(config))

@@ -1,13 +1,15 @@
-module.exports = function(grunt) {
+var redefine = require('re-define')
 
+module.exports = function(grunt) {
   grunt.initConfig({
     redefine: {
-      first: {
+      options: { }
+    , first: {
         config: {
             "base": "examples/first/lib/"
           , "main": "main.js"
           , "output": "dist.js"
-          , "wrapper": "umd/amd-web"
+          , "wrapper": "test"
           , "name": "my-component"
           , "namespace": "ns"
           , "dependencies":
