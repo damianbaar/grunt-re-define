@@ -9,8 +9,7 @@ Grunt task for [re-define](https://github.com/damianbaar/re-define)
         wrapper: 'umd/4all'
       },
       "my-component": {
-          name      : 'my-component'
-        , map       : 'jquery#parent.$,external2#parent.myExtLib'
+          map       : 'jquery#parent.$,external2#parent.myExtLib'
         , return    : 'deps/four'
         , files: [
           { cwd  : 'examples/first/lib'
