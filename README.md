@@ -1,21 +1,50 @@
 # grunt-redefine
 Grunt task for [re-define](https://github.com/damianbaar/re-define)
 
-## The "redefine" task
-
-### Overview
-In your project's Gruntfile, add a section named `redefine` to the data object passed into `grunt.initConfig()`.
-
+### Configuration
 ```js
-grunt.initConfig({
-  redefine: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-});
+  grunt.initConfig({
+    redefine: {
+      options: {
+        wrapper: 'umd/4all'
+      },
+      "my-component": {
+          name      : 'my-component'
+        , map       : 'jquery#parent.$,external2#parent.myExtLib'
+        , return    : 'deps/four'
+        , files: [
+          { cwd  : 'examples/first/lib'
+          , dest : 'out.js'
+          , src  : [ 
+                   '../external/external1.js#external1' //path#alias, relative to cwd
+                    , '**/*.+(js|html)'
+          ]
+          }
+        ]
+      }
+    }
+  })
 ```
+
+### Custom template
+```
+var redefine = require('re-define')
+
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+    redefine: {
+      options: {
+        wrappers: {
+          clean: redefine.wrapper.fromString("{{{code}}}")
+        }
+      }
+      ...
+    }
+  })
+}
+```
+
+### Debug
+`DEBUG=re-define:* grunt redefine`
 

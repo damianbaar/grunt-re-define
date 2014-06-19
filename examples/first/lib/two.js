@@ -1,3 +1,4 @@
-define(function(require){
-  return require('./three') 
-})
+define(function(require, exports, module) {
+  var $ = require('jquery')
+  module.exports = "two"
+});

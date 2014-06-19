@@ -1,14 +1,13 @@
 define(
   [ "dotpath/fi-ve"
+  , "three"
+  , "two"
   , "text!./deps/template.html"
-  , "exports"
   , "css!./styles.css"
   ]
-  , function(five, template, exports){
+  , function(five, three, two, template){
 
-    console.log(five, template, exports)
-
-    return exports.one = function () {
+    return function () {
       console.log(template)
     }
 })

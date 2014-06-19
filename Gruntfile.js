@@ -1,34 +1,32 @@
-var redefine = require('re-define')
-
 module.exports = function(grunt) {
+
+  grunt.registerTask('demo', ['redefine', 'jsbeautifier'])
 
   grunt.initConfig({
     redefine: {
       options: {
-        wrappers: {
-          test: redefine.wrapper.fromString("{{{code}}}")
-        }
+        wrapper: 'umd/4all'
       },
-      first: {
-        config: {
-            "base": "examples/first/lib/"
-          , "main": "main.js"
-          , "output": "dist.js"
-          , "wrapper": "test"
-          , "name": "my-component"
-          , "namespace": "ns"
-          , "dependencies":
-            { "resolve": 
-              { "^(css\/?)*!": "skip:css"
-              , "^(domReady\/?)!": "skip" }
-            , "references": 
-              { "jquery": "$"
-              , "exports": "this['ns']" }
-            }
+      "my-component": {
+          name      : 'my-component'
+        , map       : 'jquery#parent.$,external2#parent.myExtLib'
+        , return    : 'deps/four'
+        , files: [
+          { cwd  : 'examples/first/lib'
+          , dest : 'out.js'
+          , src  : [ 
+                   '../external/external1.js#external1' //path#alias, relative to cwd
+                    , '**/*.+(js|html)'
+          ]
           }
-        }
+        ]
       }
+    },
+    "jsbeautifier" : {
+      files : ["out.js"]
+    }
   })
 
   grunt.loadTasks('tasks')
+  grunt.loadNpmTasks('grunt-jsbeautifier')
 }
