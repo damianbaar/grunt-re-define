@@ -7,7 +7,7 @@
         var jquery = parent.$
         var external2 = parent.myExtLib
 
-        parent['deps_four'] = factory(jquery, external2)
+        parent['my-component'] = factory(jquery, external2)
     }
 }(this, function(jquery, external2) {
     var dotpath_inner = 'inner';
