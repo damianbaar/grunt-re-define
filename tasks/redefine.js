@@ -9,9 +9,11 @@ module.exports = function(grunt) {
     var done = this.async()
       , config = _.merge(_.omit(this.data, 'files'), this.options())
       , base = config.base
+      
+    config.name = this.target
 
     if(config.excludeDeps) config.excludeDeps = config.externals.split(',')
-    if(config.map)         config.externals   = config.map.split(',')
+    if(config.map)         config.map = config.map.split(',')
 
     config = redefine.config(config)
 
