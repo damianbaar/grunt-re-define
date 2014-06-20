@@ -14,10 +14,8 @@ Grunt task for [re-define](https://github.com/damianbaar/re-define)
         , files: [
           { cwd  : 'examples/first/lib'
           , dest : 'out.js'
-          , src  : [ 
-                   '../external/external1.js#external1' //path#alias, relative to cwd
-                    , '**/*.+(js|html)'
-          ]
+          , src  : [ '../external/external1.js#external1' //path#alias, relative to cwd
+                   , '**/*.+(js|html)' ]
           }
         ]
       }
@@ -35,7 +33,7 @@ module.exports = function(grunt) {
     redefine: {
       options: {
         wrappers: {
-          clean: redefine.wrapper.fromString("{{{code}}}")
+          clean: redefine.template("{{{code}}}")
         }
       }
       ...
