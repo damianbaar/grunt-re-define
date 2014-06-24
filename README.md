@@ -6,16 +6,16 @@ Grunt task for [re-define](https://github.com/damianbaar/re-define)
   grunt.initConfig({
     redefine: {
       options: {
-        wrapper: 'umd/4all'
+        wrapper: 'umd'
       },
       "my-component": {
-          map       : 'jquery#parent.$,external2#parent.myExtLib'
-        , return    : 'deps/four'
+          map    : { jquery: 'parent.$', external2: 'parent.myExtLib' }
+        , external : { external1 : '../external/external1.js' }
+        , return : 'deps/four'
         , files: [
           { cwd  : 'examples/first/lib'
           , dest : 'out.js'
-          , src  : [ '../external/external1.js#external1' //path#alias, relative to cwd
-                   , '**/*.+(js|html)' ]
+          , src  : [ '**/*.+(js|html)' ]
           }
         ]
       }

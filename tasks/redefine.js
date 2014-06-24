@@ -13,17 +13,13 @@ module.exports = function(grunt) {
     config.name = this.target
 
     if(config.excludeDeps) config.excludeDeps = config.externals.split(',')
-    if(config.map)         config.map = config.map.split(',')
+    if(config.map)         config.map = _.map(config.map, function(k,v) { return v + '#' + k })
+    if(config.external)    config.include = _.map(config.external, function(k,v) { return k + '#' + v})
 
     config = redefine.config(config)
 
     this.files.forEach(function(f) {
       if(!base) config.base = f.orig.cwd
-
-      config.include = _(f.orig.src)
-                       .map(function(f) { if(f.indexOf('#') > -1) return f })
-                       .compact()
-                       .value()
 
       var converter = redefine.fromPath(config)
 

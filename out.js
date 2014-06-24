@@ -10,39 +10,48 @@
         parent['my-component'] = factory(jquery, external2)
     }
 }(this, function(jquery, external2) {
-    var dotpath_inner = 'inner';
-    var deps_four = (function(r_0) {
+    //includes external1
+    var _scope_ = {}
+    var dotpath_inner = _scope_['dotpath/inner'] = 'inner';
+    var deps_four = _scope_['deps/four'] = (function(r_0) {
         var inner = r_0;
         return 'Yeah that\'s me, I like better CommonJS style' + inner;
     })(dotpath_inner);
-    var txt_deps_template = '<li></li><li></li><li></li><li></li>';
-    var dotpath_fi_ve = function(inner) {
+    var text_deps_template_html = _scope_['text!deps/template.html'] = '<li></li><li></li><li></li><li></li>';
+    var dotpath_fi_ve = _scope_['dotpath/fi-ve'] = function(inner) {
         return inner;
     }(dotpath_inner);
-    var three = {
+    var three = _scope_['three'] = {
         hello: 'Yo!'
     };
-    var two = (function(r_0) {
+    var two = _scope_['two'] = (function(r_0) {
         var $ = r_0;
         return 'two';
     })(jquery);
-    var one = function(five, three, two, template) {
+    var one = _scope_['one'] = function(five, three, two, template) {
         return function() {
             console.log(template);
         };
-    }(dotpath_fi_ve, three, two, txt_deps_template);
-    var external1 = function(jquery) {
+    }(dotpath_fi_ve, three, two, text_deps_template_html);
+    var external1 = _scope_['external1'] = function(jquery) {
         return 'i\'m external';
     }(jquery);
-    var txt_template = '<div>test</div><div></div><div></div><div></div>';
-    (function(one, jquery, four, ext1, ext2, t1) {
+    var text_template_html = _scope_['text!template.html'] = '<div>test</div><div></div><div></div><div></div>';
+    var main = _scope_['main'] = (function(one, jquery, four, ext1, ext2, t1) {
         return [
             one,
             four,
             t1
         ];
-    }(one, jquery, deps_four, external1, external2, txt_template));;
+    }(one, jquery, deps_four, external1, external2, text_template_html));;
 
+
+    function local_require(name) {
+        name = name.replace(/\.+\//g, '')
+        return _scope_[name] || [jquery, external2][
+            ['jquery', 'external2'].indexOf(name)
+        ]
+    }
 
     return deps_four
 }))
