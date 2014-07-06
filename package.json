@@ -35,7 +35,7 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "re-define": ">=0.0.3",
+    "re-define": "0.0.25",
     "grunt": "^0.4.5",
     "through2": "^0.4.1",
     "lodash": "^2.4.1"
