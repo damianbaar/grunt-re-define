@@ -5,21 +5,21 @@ Grunt task for [re-define](https://github.com/damianbaar/re-define)
 ```js
   grunt.initConfig({
     redefine: {
-      options: {
-        wrapper: 'umd'
-      },
       "my-component": {
-          map    : { jquery: 'parent.$', external2: 'parent.myExtLib' }
-        , external : { external1 : '../external/external1.js' }
-        , return : 'deps/four'
-        , files: [
-          { cwd  : 'examples/first/lib'
+            base: 'examples/first/lib'
+          , main: 'examples/first/lib/main.js'
           , dest : 'out.js'
-          , src  : [ '**/*.+(js|html)' ]
-          }
-        ]
+          , names: { amd:"ns/my-component", global:"ns.my_component"}
+          , excludeDepRef : ['\.css$', 'domReady!']
+          // , globals: ["jquery#parent.core.jquery"] globals remapping
+          , transforms: [
+              includeExternal({
+                external     : { external1:"examples/first/external/external1.js" }
+                //discoverable : ['examples/first/external/']
+              })
+          ]
       }
-    }
+    },
   })
 ```
 
@@ -33,9 +33,9 @@ module.exports = function(grunt) {
     redefine: {
       options: {
         wrappers: {
-          clean: redefine.template("{{{code}}}")
+          clean: redefine.template(fs.readFileSync('./examples/first/template.tmpl'))
         }
-      }
+      },
       ...
     }
   })
@@ -43,5 +43,5 @@ module.exports = function(grunt) {
 ```
 
 ### Debug
-`DEBUG=re-define:* grunt redefine`
+`DEBUG=re-define:* grunt`
 

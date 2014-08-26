@@ -26,7 +26,8 @@
   "scripts": {},
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-jsbeautifier": "^0.2.7"
+    "grunt-jsbeautifier": "^0.2.7",
+    "re-define-include-external": "0.0.2"
   },
   "peerDependencies": {
     "grunt": "~0.4.5"
@@ -35,9 +36,10 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "re-define": "0.0.25",
     "grunt": "^0.4.5",
     "through2": "^0.4.1",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "re-define": "^1.8.10",
+    "vinyl": "^0.3.2"
   }
 }

@@ -1,0 +1,10 @@
+<% _.each(bundles, function(b) { 
+_.each(b.code, function(c) { %>
+// file: <%= c.name %> 
+// wrap: <%= c.wrap %> 
+// type : <%= c.type %> 
+// children: <%= c.hasChildren %> 
+
+<%= c.content %> 
+<% })}) %>
+

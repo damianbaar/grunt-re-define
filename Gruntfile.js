@@ -1,24 +1,38 @@
+var includeExternal = require('re-define-include-external')
+  , redefine = require('re-define')
+  , fs = require('fs')
+
 module.exports = function(grunt) {
 
+  grunt.registerTask('default', ['demo'])
+  grunt.registerTask('template', ['redefine:custom-template'])
   grunt.registerTask('demo', ['redefine:my-component', 'jsbeautifier'])
 
   grunt.initConfig({
     redefine: {
       options: {
-        wrapper: 'umd'
+        wrappers: {
+          clean: redefine.template(fs.readFileSync('./examples/first/template.tmpl'))
+        }
       },
       "my-component": {
-          map    : {jquery: 'parent.$', external2: 'parent.myExtLib'}
-        , external : {
-          external1 : '../external/external1.js'
-        }
-        , return : 'deps/four'
-        , files: [
-          { cwd  : 'examples/first/lib'
+            base: 'examples/first/lib'
+          , main: 'examples/first/lib/main.js'
           , dest : 'out.js'
-          , src  : [ '**/*.+(js|html)' ]
-          }
-        ]
+          , names: { amd:"ns/my-component", global:"ns.my_component"}
+          , excludeDepRef : ['\.css$', 'domReady!']
+          // , globals: ["jquery#parent.core.jquery"] globals remapping
+          , transforms: [
+              includeExternal({
+                external     : { external1:"examples/first/external/external1.js" }
+                //discoverable : ['examples/first/external/']
+              })
+          ]
+      },
+      "custom-template": {
+        main: 'examples/first/lib/main.js'
+      , dest : 'out.js'
+      , wrapper: 'clean'
       }
     },
     "jsbeautifier" : {
