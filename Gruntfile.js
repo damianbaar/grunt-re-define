@@ -19,13 +19,14 @@ module.exports = function(grunt) {
             base: 'examples/first/lib'
           , main: 'examples/first/lib/main.js'
           , dest : 'out.js'
+          , returns : 'main'
           , names: { amd:"ns/my-component", global:"ns.my_component"}
           , excludeDepRef : ['\.css$', 'domReady!']
           // , globals: ["jquery#parent.core.jquery"] globals remapping
           , transforms: [
               includeExternal({
-                external     : { external1:"examples/first/external/external1.js" }
-                //discoverable : ['examples/first/external/']
+                // external     : { external1:"examples/first/external/external1.js" }
+                discoverable : ['examples/first/external/']
               })
           ]
       },

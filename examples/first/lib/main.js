@@ -6,6 +6,8 @@ require(
   , "external2"
   , "text!./template.html"
   , "domReady!"
+  , "d3"
+  , "d3/d3"
   ]
   , function(one, jquery, four, ext1, ext2, t1)
   {

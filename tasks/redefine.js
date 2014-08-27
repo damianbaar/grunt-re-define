@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       .bundle(redefine.config(_.omit(config, 'transforms')), config.transforms)
 
     bundle.pipe(through(function(result, enc, next) {
-      grunt.log.writeln('File "' + config.main + '" created.')
+      grunt.log.writeln('File "' + config.dest + '" created.')
       grunt.file.write(config.dest, result)
       done()
     }))

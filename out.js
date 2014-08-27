@@ -38,6 +38,8 @@
         }.bind(context))({});
     })(this);
 
+    (function() {}());;
+
     (function(context) {
         context['main'] = (function(scope) {
 
@@ -112,6 +114,8 @@
                 var ext1 = require('external1');
                 var ext2 = require('external2');
                 var t1 = require('template.html');
+                require('d3');
+                require('d3');
                 exports = [
                     one,
                     four,
@@ -132,7 +136,8 @@
     })(this);
 
 
-    return this
+    return this['main']
+
 
     function require(name) {
         return context[name]
