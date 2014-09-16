@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     redefine: {
       options: {
         wrappers: {
-          clean: redefine.template(fs.readFileSync('./examples/first/template.tmpl'))
+          // clean: redefine.template(fs.readFileSync('./examples/first/template.tmpl'))
         }
       },
       "my-component": {
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         , excludeAMDModules: ['\.css$', 'domReady!']
         , globals: ["jquery#parent.core.jquery"] //path to global
         , namespace: "my.component"
-        , imports: ["window"] //could be also different namespace
+        , imports: ["window"] //you can also specify different namespaces
         , transforms: [
             includeExternal({
               // external     : { external1:"examples/first/external/external1.js" }
