@@ -40,6 +40,7 @@
     "through2": "^0.4.1",
     "lodash": "^2.4.1",
     "re-define": "^1.8.12",
-    "vinyl": "^0.3.2"
+    "vinyl": "^0.3.2",
+    "re-define-include-external": "^0.1.2"
   }
 }
