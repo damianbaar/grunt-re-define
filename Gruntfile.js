@@ -5,8 +5,7 @@ var includeExternal = require('re-define-include-external')
 module.exports = function(grunt) {
 
   grunt.registerTask('default', ['demo'])
-  grunt.registerTask('template', ['redefine:custom-template'])
-  grunt.registerTask('demo', ['redefine:my-component', 'jsbeautifier'])
+  grunt.registerTask('demo', ['redefine:my-component'])
 
   grunt.initConfig({
     redefine: {
@@ -16,31 +15,25 @@ module.exports = function(grunt) {
         }
       },
       "my-component": {
-            base: 'examples/first/lib'
-          , main: 'examples/first/lib/main.js'
-          , dest : 'out.js'
-          , returns : 'main'
-          , names: { amd:"ns/my-component", global:"ns.my_component"}
-          , excludeDepRef : ['\.css$', 'domReady!']
-          // , globals: ["jquery#parent.core.jquery"] globals remapping
-          , transforms: [
-              includeExternal({
-                // external     : { external1:"examples/first/external/external1.js" }
-                discoverable : ['examples/first/external/']
-              })
-          ]
+          project: 'demo'
+        , returns : 'main'
+        , names: { amd:"ns/my-component", global:"ns.my_component"}
+        , excludeAMDModules: ['\.css$', 'domReady!']
+        , globals: ["jquery#parent.core.jquery"] //path to global
+        , namespace: "my.component"
+        , imports: ["window"] //could be also different namespace
+        , transforms: [
+            includeExternal({
+              // external     : { external1:"examples/first/external/external1.js" }
+              discoverable : ['examples/first/external/']
+            })
+        ]
+        , src: ['**/*.+(js|html)', '!**/node_modules/**', '!index.html', '!out.js']
+        , cwd: './examples/first/'
+        , dest : './examples/first/out.js'
       },
-      "custom-template": {
-        main: 'examples/first/lib/main.js'
-      , dest : 'out.js'
-      , wrapper: 'clean'
-      }
-    },
-    "jsbeautifier" : {
-      files : ["out.js"]
     }
   })
 
   grunt.loadTasks('tasks')
-  grunt.loadNpmTasks('grunt-jsbeautifier')
 }
