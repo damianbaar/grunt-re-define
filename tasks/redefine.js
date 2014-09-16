@@ -2,7 +2,7 @@ var redefine    = require('re-define')
   , _           = require('lodash')
   , through     = require('through2')
   , path        = require('path')
-  , File        = require('vinyl')
+  , Module      = require('re-define-module')
 
 module.exports = function(grunt) {
 
@@ -34,10 +34,10 @@ module.exports = function(grunt) {
         if (!grunt.file.exists(filepath)) 
           grunt.log.warn('Source file "' + fp + '" not found.');
         else
-          bundle.write(new File({ cwd: path.resolve(process.cwd(), f.cwd)
-                                , base: path.dirname(filepath)
-                                , path: path.resolve(filepath)
-                                }))
+          bundle.write(Module({ cwd: path.resolve(process.cwd(), f.cwd)
+                              , base: path.dirname(filepath)
+                              , path: path.resolve(filepath)
+                              }))
       })
     })
   })
