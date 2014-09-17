@@ -19,15 +19,16 @@ module.exports = function(grunt) {
         , returns : 'main'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
-        , globals: ["jquery#parent.core.jquery"] //path to global
+        , globals: {jquery: "parent.core.jquery"} //path to global
         , namespace: "my.component"
-        , imports: ["window"] //could be also different namespace
+        , imports: ["window"]
         , transforms: [
             includeExternal({
               // external     : { external1:"examples/first/external/external1.js" }
               discoverable : ['examples/first/external/']
             })
         ]
+        //glob patterns or files
         , src: ['**/*.+(js|html)', '!**/node_modules/**', '!index.html', '!out.js']
         , cwd: './examples/first/'
         , dest : './examples/first/out.js'
@@ -43,9 +44,9 @@ module.exports = function(grunt) {
 ```
 module.exports = 
   { names         : {amd: 'amd/name', global: 'global.name'}
-  , project       : '' //project name, it creates a prefix for internal file paths
-  , returns       : ''
-  , globals      : [] //external module_name#global_ref
+  , project       : '' //project name, adding a prefix to internal module name
+  , returns       : '' //by default returns last module
+  , globals      : {} //external {lib:global}
 
   //define cutting points for modules { glob_pattern: file }
   , slice         : {"**/**": "bundle.js"}
@@ -55,8 +56,8 @@ module.exports =
   , base          : '.'
   //wrapper file 
   , wrapper       : 'default'
-  //attach all bundled modules to namespace
-  , namespace: "your.namespace"
+  //attach all bundled modules to namespace, foo.baz.bar is allowed, if empty init empty object
+  , namespace: '' 
   //exclude specific AMD dependencies
   , excludeAMDModules : ['\.css$', 'require', 'modules', 'exports']
   //regexp to detect an AMD plugins, first we need to remove the plugin prefix to get a path
@@ -69,7 +70,7 @@ module.exports =
   , format: {
       indent: { style: '  ', base: 2 },
       space: ' ',
-      safeConcatenation:true 
+      safeConcatenation: false
     }
   }
 ```

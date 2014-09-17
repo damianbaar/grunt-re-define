@@ -9,17 +9,13 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     redefine: {
-      options: {
-        wrappers: {
-          // clean: redefine.template(fs.readFileSync('./examples/first/template.tmpl'))
-        }
-      },
       "my-component": {
           project: 'demo'
-        , returns : 'main'
+        , returns : 'demo/main.js'
+        , wrapper: 'umd'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
-        , globals: ["jquery#parent.core.jquery"] //path to global
+        , globals: {jquery:"parent.core.jquery"}
         , namespace: "my.component"
         , imports: ["window"] //you can also specify different namespaces
         , transforms: [
@@ -28,7 +24,7 @@ module.exports = function(grunt) {
               discoverable : ['examples/first/external/']
             })
         ]
-        , src: ['**/*.+(js|html)', '!**/node_modules/**', '!index.html', '!out.js']
+        , src: ['./lib/main.js']
         , cwd: './examples/first/'
         , dest : './examples/first/out.js'
       },
