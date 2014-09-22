@@ -16,21 +16,22 @@ module.exports = function(grunt) {
     redefine: {
       "my-component": {
           project: 'demo'
-        , returns : 'main'
+        , returns : 'demo/main.js'
+        , wrapper: 'umd'
+        , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
-        , globals: {jquery: "parent.core.jquery"} //path to global
+        , globals: {jquery:"parent.core.jquery"}
         , namespace: "my.component"
-        , imports: ["window"]
+        , imports: ["window"] //import namespaces
         , transforms: [
             includeExternal({
-              // external     : { external1:"examples/first/external/external1.js" }
-              discoverable : ['examples/first/external/']
+                skip: ['d3', 'jquery']
+              , external: { external1:"examples/first/external/external1.js" }
             })
         ]
-        //glob patterns or files
-        , src: ['**/*.+(js|html)', '!**/node_modules/**', '!index.html', '!out.js']
-        , cwd: './examples/first/'
+        , src: ['./lib/main.js']
+        , cwd: './examples/first'
         , dest : './examples/first/out.js'
       },
     }
@@ -45,18 +46,20 @@ module.exports = function(grunt) {
 module.exports = 
   { names         : {amd: 'amd/name', global: 'global.name'}
   , project       : '' //project name, adding a prefix to internal module name
-  , returns       : '' //by default returns last module
+  , returns       : ''
   , globals      : {} //external {lib:global}
 
+  //working directory
+  , cwd           : ''
   //define cutting points for modules { glob_pattern: file }
   , slice         : {"**/**": "bundle.js"}
   //could be a folder (in case of many files) or just file, when not defined print output to console
   , output        : ''
-  //base folder, all modules will be aligned to that
+  //base folder, all modules will be aligned to this one, like cwd: a, file: a/b/c, base: a/b, file -> c
   , base          : '.'
   //wrapper file 
   , wrapper       : 'default'
-  //attach all bundled modules to namespace, foo.baz.bar is allowed, if empty init empty object
+  //attach all bundled modules to namespace, foo.baz.bar is allowed
   , namespace: '' 
   //exclude specific AMD dependencies
   , excludeAMDModules : ['\.css$', 'require', 'modules', 'exports']
@@ -70,8 +73,10 @@ module.exports =
   , format: {
       indent: { style: '  ', base: 2 },
       space: ' ',
+      compact: false,
       safeConcatenation: false
     }
+  , showWarnings: true
   }
 ```
 

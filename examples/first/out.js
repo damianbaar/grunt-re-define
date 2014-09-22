@@ -1,25 +1,27 @@
 (function (parent, factory){
   if (typeof define === 'function' && define.amd) {
-    define('ns/my-component', ['jquery','external2'], factory)
+    define('ns/my-component', ['jquery','external2','d3'], factory)
   } else if (typeof exports === 'object') {
-    module.exports = factory(require('jquery'),require('external2'))
+    module.exports = factory(require('jquery'),require('external2'),require('d3'))
   } else {
     var jquery =  parent.parent.core.jquery
     var external2 =  parent.external2
+    var d3 =  parent.d3
   
     parent.ns = parent.ns || {};
-parent.ns.my_component = factory(jquery,external2);
+parent.ns.my_component = factory(jquery,external2,d3);
 
   }
-  }(this, function (jquery,external2) {
+  }(this, function (jquery,external2,d3) {
 
   var closure = {}
 
   closure['jquery'] = jquery
   closure['external2'] = external2
+  closure['d3'] = d3
   
 
-var require = //externals: jquery,external2 
+var require = //externals: jquery,external2,d3 
 (function (modules, namespace, imports) {
   function require(name){
     if(!namespace[name]) {
@@ -78,30 +80,18 @@ module.exports = '<li></li><li></li><li></li><li></li>'
     var inner = require('demo/dotpath/inner');
     module.exports = 'Yeah that\'s me, I like better CommonJS style' + inner;
 }, {"__filename":"four.js","__dirname":"deps"}], 
-'external1': [function(exports, require, module, __filename, __dirname) { 
+'external/external1': [function(exports, require, module, __filename, __dirname) { 
     var jquery = require('jquery');
     return 'i\'m external';
-}, {"__filename":"external1.js","__dirname":"examples/first/external"}], 
+}, {"__filename":"external1.js","__dirname":"external"}], 
 'demo/template.html': [function(exports, require, module, __filename, __dirname) { 
 module.exports = '<div>test</div><div></div><div></div><div></div>'
 }, {"__filename":"template.html","__dirname":"."}], 
-'d3/a': [function(exports, require, module, __filename, __dirname) { 
-    var a = 'test';
-}, {"__filename":"a.js","__dirname":"examples/first/external/d3"}], 
-'d3/lib/b': [function(exports, require, module, __filename, __dirname) { 
-    var b = 'test';
-}, {"__filename":"b.js","__dirname":"examples/first/external/d3/lib"}], 
-'d3': [function(exports, require, module, __filename, __dirname) { 
-    (function () {
-      require('d3/a');
-      require('d3/lib/b');
-    }());
-}, {"__filename":"d3.js","__dirname":"examples/first/external/d3"}], 
 'demo/main': [function(exports, require, module, __filename, __dirname) { 
     var one = require('demo/one');
     var jquery = require('jquery');
     var four = require('demo/deps/four');
-    var ext1 = require('external1');
+    var ext1 = require('external/external1');
     var ext2 = require('external2');
     var t1 = require('demo/template.html');
     require('d3');

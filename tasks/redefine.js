@@ -13,8 +13,10 @@ module.exports = function(grunt) {
 
 
     this.files.forEach(function(f) {
-      var bundle = redefine.bundle( redefine.config(_.omit(config, 'transforms'))
-                                  , config.transforms)
+      var conf = redefine.config(_.omit(config, 'transforms'))
+      conf.cwd = f.cwd
+
+      var bundle = redefine.bundle(conf, config.transforms)
 
       bundle.pipe(through.obj(function(file, enc, next) {
         grunt.log.writeln('File "' + f.dest + '" created.')
