@@ -21,6 +21,7 @@ module.exports = function(grunt) {
       bundle.pipe(through.obj(function(file, enc, next) {
         grunt.log.writeln('File "' + f.dest + '" created.')
         grunt.file.write(f.dest, file.contents)
+        next()
       }, function() {
         done()
       }))

@@ -80,7 +80,7 @@ module.exports = '<li></li><li></li><li></li><li></li>'
     var inner = require('demo/dotpath/inner');
     module.exports = 'Yeah that\'s me, I like better CommonJS style' + inner;
 }, {"__filename":"four.js","__dirname":"deps"}], 
-'external/external1': [function(exports, require, module, __filename, __dirname) { 
+'external1': [function(exports, require, module, __filename, __dirname) { 
     var jquery = require('jquery');
     return 'i\'m external';
 }, {"__filename":"external1.js","__dirname":"external"}], 
@@ -91,7 +91,7 @@ module.exports = '<div>test</div><div></div><div></div><div></div>'
     var one = require('demo/one');
     var jquery = require('jquery');
     var four = require('demo/deps/four');
-    var ext1 = require('external/external1');
+    var ext1 = require('external1');
     var ext2 = require('external2');
     var t1 = require('demo/template.html');
     require('d3');
