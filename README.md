@@ -27,7 +27,7 @@ module.exports = function(grunt) {
         , transforms: [
             includeExternal({
                 skip: ['d3', 'jquery']
-              , external: { external1:"examples/first/external/external1.js" }
+              , external: { external1:"/external/external1.js" }
             })
         ]
         , src: ['./lib/main.js']
