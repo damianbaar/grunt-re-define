@@ -14,7 +14,8 @@ module.exports = function(grunt) {
 
     this.files.forEach(function(f) {
       var conf = redefine.config(_.omit(config, 'transforms'))
-      conf.cwd = f.cwd
+
+      conf.cwd = !!f.cwd ? f.cwd : '.'
 
       var bundle = redefine.bundle(conf, config.transforms)
 
@@ -26,21 +27,19 @@ module.exports = function(grunt) {
         done()
       }))
 
-      if(!f.src) {
-        grunt.log.error('SRC needs to be defined')
-        return
+      if(_.isEmpty(f.src)) {
+        grunt.log.error('Source is empty, most likely file/s does not exist, align to cwd:', conf.cwd, f.orig.src)
         done()
+        return
       }
-      f.src.forEach(function(fp) {
-        var filepath = path.resolve(f.cwd, fp)
 
-        if (!grunt.file.exists(filepath)) 
-          grunt.log.warn('Source file "' + fp + '" not found.');
-        else
-          bundle.write(Module({ cwd: path.resolve(process.cwd(), f.cwd)
-                              , base: path.dirname(filepath)
-                              , path: path.resolve(filepath)
-                              }))
+      f.src.forEach(function(fp) {
+        var filepath = path.resolve(f.cwd || conf.cwd, fp)
+
+        bundle.write(Module({ cwd: path.resolve(process.cwd(), f.cwd || conf.cwd)
+                            , base: path.dirname(filepath)
+                            , path: path.resolve(filepath)
+                            }))
       })
     })
   })

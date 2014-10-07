@@ -1,7 +1,7 @@
-(function (parent, factory){
+;(function (parent, factory){
   if (typeof define === 'function' && define.amd) {
     define('ns/my-component', ['jquery','external2','d3'], factory)
-  } else if (typeof exports === 'object') {
+  } else if (typeof module === "object" && !!module.exports) {
     module.exports = factory(require('jquery'),require('external2'),require('d3'))
   } else {
     var jquery =  parent.parent.core.jquery
@@ -29,14 +29,14 @@ var require = //externals: jquery,external2,d3
         , f = modules[name]
 
       if(f) {
-        f = f[0].call(m, m, require, m, f[1].__filename, f[1].__dirname);
+        f = f[0].call(m, m.exports, require, m, f[1].__filename, f[1].__dirname);
         namespace[name] = f || m.exports;
       } else {
         if(!imports) throw new Error('Module does not exists ' + name);
 
         var mod;
         for(var i=0; i < imports.length; i++) {
-          mod = imports[i][name];
+          mod = imports[i] && imports[i][name];
           if(mod) return mod;
         }
 
