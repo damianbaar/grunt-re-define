@@ -1,5 +1,4 @@
 var includeExternal = require('re-define-include-external')
-  , redefine = require('re-define')
   , fs = require('fs')
 
 module.exports = function(grunt) {
@@ -9,16 +8,22 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     redefine: {
+      options: { 
+        wrappers: { 
+          custom: fs.readFileSync('./examples/first/custom.tmpl')
+        }
+      },
       "my-component": {
           project: 'demo'
         , returns : 'demo/main.js'
-        , wrapper: 'umd'
+        , wrapper: 'custom'
         , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
         , globals: {jquery:"parent.core.jquery"}
         , namespace: "my.component"
         , imports: ["window"] //import namespaces
+        , showWarnings: false
         , transforms: [
             includeExternal({
                 skip: ['d3', 'jquery']

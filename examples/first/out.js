@@ -1,53 +1,33 @@
 ;(function (parent, factory){
-  if (typeof define === 'function' && define.amd) {
-    define('ns/my-component', ['jquery','external2','d3'], factory)
-  } else if (typeof module === "object" && !!module.exports) {
-    module.exports = factory(require('jquery'),require('external2'),require('d3'))
-  } else {
-    var jquery =  parent.parent.core.jquery
-    var external2 =  parent.external2
-    var d3 =  parent.d3
-  
-    parent.ns = parent.ns || {};
-parent.ns.my_component = factory(jquery,external2,d3);
 
-  }
-  }(this, function (jquery,external2,d3) {
-
-  var closure = {}
-
-  closure['jquery'] = jquery
-  closure['external2'] = external2
-  closure['d3'] = d3
-  
-
-var require = //externals: jquery,external2,d3 
+var __req = //externals: jquery,external2,d3 
 (function (modules, namespace, imports) {
-  function require(name){
+  function __req(name){
     if(!namespace[name]) {
       var m = {exports:{}}
         , f = modules[name]
 
       if(f) {
-        f = f[0].call(m, m.exports, require, m, f[1].__filename, f[1].__dirname);
+        f = f[0].call(m, m.exports, __req, m, f[1].__filename, f[1].__dirname);
         namespace[name] = f || m.exports;
       } else {
-        if(!imports) throw new Error('Module does not exists ' + name);
+        var mod
+          , len = imports && imports.length;
 
-        var mod;
-        for(var i=0; i < imports.length; i++) {
+        for(var i=0; i < len; i++) {
           mod = imports[i] && imports[i][name];
           if(mod) return mod;
         }
 
-        if(!mod) throw new Error('Module does not exists ' + name);
+        if(!!require) return require.apply(null, arguments);
+        else if(!mod) throw new Error('Module does not exists ' + name);
       }
     }
     return namespace[name];
   }
 
-  for(var name in modules) require(name);
-  return require;
+  for(var name in modules) __req(name);
+  return __req;
 })
 ({ 
 'demo/dotpath/inner': [function(exports, require, module, __filename, __dirname) { 
@@ -65,7 +45,7 @@ var require = //externals: jquery,external2,d3
     module.exports = 'two';
 }, {"__filename":"two.js","__dirname":"."}], 
 'demo/deps/template.html': [function(exports, require, module, __filename, __dirname) { 
-module.exports = '<li></li><li></li><li></li><li></li>'
+module.exports = "<li></li><li></li><li></li><li></li>"
 }, {"__filename":"template.html","__dirname":"deps"}], 
 'demo/one': [function(exports, require, module, __filename, __dirname) { 
     var five = require('demo/dotpath/fi-ve');
@@ -85,7 +65,7 @@ module.exports = '<li></li><li></li><li></li><li></li>'
     return 'i\'m external';
 }, {"__filename":"external1.js","__dirname":"external"}], 
 'demo/template.html': [function(exports, require, module, __filename, __dirname) { 
-module.exports = '<div>test</div><div></div><div></div><div></div>'
+module.exports = "<div>test</div><div></div><div></div><div></div>"
 }, {"__filename":"template.html","__dirname":"."}], 
 'demo/main': [function(exports, require, module, __filename, __dirname) { 
     var one = require('demo/one');
@@ -95,6 +75,8 @@ module.exports = '<div>test</div><div></div><div></div><div></div>'
     var ext2 = require('external2');
     var t1 = require('demo/template.html');
     require('d3');
+    require(['a'], function () {
+    });
     return [
       one,
       four,
@@ -106,6 +88,6 @@ module.exports = '<div>test</div><div></div><div></div><div></div>'
 , [closure,window]
 )
 
-return require('demo/main') 
+return __req('demo/main.js')
 
 }.bind({})))

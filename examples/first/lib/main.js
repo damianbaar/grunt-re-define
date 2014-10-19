@@ -11,5 +11,9 @@ require(
   ]
   , function(one, jquery, four, ext1, ext2, t1)
   {
+    require(['a'], function() {
+
+    })
+
     return [one, four, t1]
 })

@@ -84,17 +84,15 @@ module.exports =
 ### Custom template
 Here you can find [predefined](https://github.com/damianbaar/re-define/lib/templates) ones.
 ```
-var redefine = require('re-define')
-
 module.exports = function(grunt) {
 
   grunt.initConfig({
     redefine: {
-      options: {
-        wrappers: {
-          my: redefine.template(fs.readFileSync('./examples/first/template.tmpl'))
+      options: { 
+        wrappers: { 
+          custom: fs.readFileSync('./examples/first/custom.tmpl')
         }
-      },
+      }
       ...
     }
   })
