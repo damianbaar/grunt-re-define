@@ -4,6 +4,7 @@ var includeExternal = require('re-define-include-external')
 module.exports = function(grunt) {
 
   grunt.registerTask('default', ['demo'])
+  grunt.registerTask('dev', ['watch'])
   grunt.registerTask('demo', ['redefine:my-component'])
 
   grunt.initConfig({
@@ -13,6 +14,7 @@ module.exports = function(grunt) {
           custom: fs.readFileSync('./examples/first/custom.tmpl')
         }
       },
+
       "my-component": {
           project: 'demo'
         , returns : 'demo/main.js'
@@ -20,7 +22,7 @@ module.exports = function(grunt) {
         , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
-        , globals: {jquery:"parent.core.jquery"}
+        , globals: {jquery:"core.jquery"}
         , namespace: "my.component"
         , imports: ["window"] //import namespaces
         , showWarnings: false
@@ -33,9 +35,20 @@ module.exports = function(grunt) {
         , src: ['./lib/main.js']
         , cwd: './examples/first'
         , dest : './examples/first/out.js'
-      },
+      }
+    },
+
+    watch: {
+      scripts: {
+        files: ['./examples/first/**/*.js', '!./examples/first/out.js'],
+        tasks: ['redefine'],
+        options: {
+          spawn: false
+        }
+      }
     }
   })
 
   grunt.loadTasks('tasks')
+  grunt.loadNpmTasks('grunt-contrib-watch')
 }

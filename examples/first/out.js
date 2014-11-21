@@ -1,6 +1,17 @@
 ;(function (parent, factory){
+    var jquery =  parent.core.jquery
+  
+    parent["ns"] = parent["ns"] || {};
+    parent["ns"]["my_component"] = factory(jquery);
 
-var __req = //externals: jquery,external2,d3 
+  }(this, function (jquery) {
+
+  var closure = {}
+
+  closure['jquery'] = jquery
+  
+
+var __req = //externals: jquery 
 (function (modules, namespace, imports) {
   function __req(name){
     if(!namespace[name]) {
@@ -19,7 +30,7 @@ var __req = //externals: jquery,external2,d3
           if(mod) return mod;
         }
 
-        if(!!require) return require.apply(null, arguments);
+        if(typeof require == "function" && require) return require.apply(null, arguments);
         else if(!mod) throw new Error('Module does not exists ' + name);
       }
     }
@@ -76,6 +87,7 @@ module.exports = "<div>test</div><div></div><div></div><div></div>"
     var t1 = require('demo/template.html');
     require('d3');
     require(['a'], function () {
+      var a = [];
     });
     return [
       one,
