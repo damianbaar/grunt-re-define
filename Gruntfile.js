@@ -1,4 +1,5 @@
 var includeExternal = require('re-define-include-external')
+  , wrap = require('re-define-wrap')
   , fs = require('fs')
 
 module.exports = function(grunt) {
@@ -17,7 +18,7 @@ module.exports = function(grunt) {
 
       "my-component": {
           project: 'demo'
-        , returns : 'demo/main.js'
+        , returns : './main.js'
         , wrapper: 'custom'
         , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
@@ -26,10 +27,14 @@ module.exports = function(grunt) {
         , namespace: "my.component"
         , imports: ["window"] //import namespaces
         , showWarnings: false
+        , development: true//enable/disable cache for faster builds
         , transforms: [
             includeExternal({
                 skip: ['d3', 'jquery']
               , external: { external1:"/external/external1.js" }
+            }),
+            wrap({
+              './examples/first/lib/one.js': '(function () {})()'
             })
         ]
         , src: ['./lib/main.js']

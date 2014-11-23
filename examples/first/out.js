@@ -1,17 +1,21 @@
 ;(function (parent, factory){
     var jquery =  parent.core.jquery
+    var external2 =  parent.external2
+    var d3 =  parent.d3
   
     parent["ns"] = parent["ns"] || {};
-    parent["ns"]["my_component"] = factory(jquery);
+    parent["ns"]["my_component"] = factory(jquery,external2,d3);
 
-  }(this, function (jquery) {
+  }(this, function (jquery,external2,d3) {
 
   var closure = {}
 
   closure['jquery'] = jquery
+  closure['external2'] = external2
+  closure['d3'] = d3
   
 
-var __req = //externals: jquery 
+var __req = //externals: jquery,external2,d3 
 (function (modules, namespace, imports) {
   function __req(name){
     if(!namespace[name]) {
@@ -59,13 +63,15 @@ var __req = //externals: jquery
 module.exports = "<li></li><li></li><li></li><li></li>"
 }, {"__filename":"template.html","__dirname":"deps"}], 
 'demo/one': [function(exports, require, module, __filename, __dirname) { 
-    var five = require('demo/dotpath/fi-ve');
-    var three = require('demo/three');
-    var two = require('demo/two');
-    var template = require('demo/deps/template.html');
-    return function () {
-      console.log(template);
-    };
+    (function () {
+      var five = require('demo/dotpath/fi-ve');
+      var three = require('demo/three');
+      var two = require('demo/two');
+      var template = require('demo/deps/template.html');
+      return function () {
+        console.log(template);
+      };
+    }());
 }, {"__filename":"one.js","__dirname":"."}], 
 'demo/deps/four': [function(exports, require, module, __filename, __dirname) { 
     var inner = require('demo/dotpath/inner');
@@ -100,6 +106,6 @@ module.exports = "<div>test</div><div></div><div></div><div></div>"
 , [closure,window]
 )
 
-return __req('demo/main.js')
+return __req('demo/main')
 
 }.bind({})))

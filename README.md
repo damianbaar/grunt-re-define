@@ -24,10 +24,15 @@ module.exports = function(grunt) {
         , globals: {jquery:"parent.core.jquery"}
         , namespace: "my.component"
         , imports: ["window"] //import namespaces
+        , showWarnings: false
+        , development: true//enable/disable cache for faster builds
         , transforms: [
             includeExternal({
                 skip: ['d3', 'jquery']
               , external: { external1:"/external/external1.js" }
+            }),
+            wrap({
+              './examples/first/lib/one.js': '(function () {})()'
             })
         ]
         , src: ['./lib/main.js']

@@ -38,9 +38,10 @@
   ],
   "dependencies": {
     "grunt": "^0.4.5",
-    "through2": "^0.4.1",
     "lodash": "^2.4.1",
     "re-define": "^1.10.0-beta",
-    "re-define-module": "^0.1.2"
+    "re-define-module": "^0.1.2",
+    "re-define-wrap": "0.0.1",
+    "through2": "^0.4.1"
   }
 }
