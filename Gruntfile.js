@@ -17,24 +17,24 @@ module.exports = function(grunt) {
       },
 
       "my-component": {
-          project: 'demo'
-        , returns : './main.js'
+          returns : './main.js'
         , wrapper: 'custom'
         , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
         , globals: {jquery:"core.jquery"}
         , namespace: "my.component"
-        , imports: ["window"] //import namespaces
+        , imports: { "window": ['d3'] }//import namespaces and exclude internal ns modules (could be a glob pattern)
         , showWarnings: false
-        , development: true//enable/disable cache for faster builds
+        , development: false//enable/disable cache for faster builds
         , transforms: [
             includeExternal({
-                skip: ['d3', 'jquery']
+                // skip: ['d3', 'jquery']
+                discoverable: ['external']
               , external: { external1:"/external/external1.js" }
             }),
             wrap({
-              './examples/first/lib/one.js': '(function () {})()'
+              './examples/first/lib/one.js': '(function (process) {})({})'
             })
         ]
         , src: ['./lib/main.js']

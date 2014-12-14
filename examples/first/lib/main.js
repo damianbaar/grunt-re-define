@@ -15,5 +15,7 @@ require(
       var a = []
     })
 
+    var a = 'test'
+
     return [one, four, t1]
 })

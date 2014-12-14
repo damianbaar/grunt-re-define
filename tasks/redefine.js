@@ -11,6 +11,14 @@ module.exports = function(grunt) {
       , config = _.merge(_.omit(this.data, 'files'), this.options())
       , base = config.base
 
+    if(!config.project) config.project = this.target
+    if(!_.isEmpty(config.imports) && !_.isArray(config.imports)) {
+      config.exclude = 
+        (config.exclude || []).concat(
+          _(config.imports).values().flatten().value() || [])
+
+      config.imports = _.keys(config.imports)
+    }
 
     this.files.forEach(function(f) {
       var conf = redefine.config(_.omit(config, 'transforms'))

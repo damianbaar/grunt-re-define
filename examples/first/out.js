@@ -1,21 +1,21 @@
 ;(function (parent, factory){
     var jquery =  parent.core.jquery
     var external2 =  parent.external2
-    var d3 =  parent.d3
   
     parent["ns"] = parent["ns"] || {};
-    parent["ns"]["my_component"] = factory(jquery,external2,d3);
+    parent["ns"]["my_component"] = factory(jquery,external2);
 
-  }(this, function (jquery,external2,d3) {
+  }(this, function (jquery,external2) {
 
   var closure = {}
 
   closure['jquery'] = jquery
   closure['external2'] = external2
-  closure['d3'] = d3
   
 
-var __req = //externals: jquery,external2,d3 
+var __req = 
+
+//externals: jquery,external2 
 (function (modules, namespace, imports) {
   function __req(name){
     if(!namespace[name]) {
@@ -45,67 +45,69 @@ var __req = //externals: jquery,external2,d3
   return __req;
 })
 ({ 
-'demo/dotpath/inner': [function(exports, require, module, __filename, __dirname) { 
+'my-component/dotpath/inner': [function(exports, require, module, __filename, __dirname) { 
     return 'inner';
-}, {"__filename":"inner.js","__dirname":"dotpath"}], 
-'demo/dotpath/fi-ve': [function(exports, require, module, __filename, __dirname) { 
-    var inner = require('demo/dotpath/inner');
+}, {"__filename":"","__dirname":""}], 
+'my-component/dotpath/fi-ve': [function(exports, require, module, __filename, __dirname) { 
+    var inner = require('my-component/dotpath/inner');
+    var t;
     return inner;
-}, {"__filename":"fi-ve.js","__dirname":"dotpath"}], 
-'demo/three': [function(exports, require, module, __filename, __dirname) { 
+}, {"__filename":"","__dirname":""}], 
+'my-component/three': [function(exports, require, module, __filename, __dirname) { 
     return { hello: 'Yo!' };
-}, {"__filename":"three.js","__dirname":"."}], 
-'demo/two': [function(exports, require, module, __filename, __dirname) { 
+}, {"__filename":"","__dirname":""}], 
+'my-component/two': [function(exports, require, module, __filename, __dirname) { 
     var $ = require('jquery');
     module.exports = 'two';
-}, {"__filename":"two.js","__dirname":"."}], 
-'demo/deps/template.html': [function(exports, require, module, __filename, __dirname) { 
+}, {"__filename":"","__dirname":""}], 
+'my-component/deps/template.html': [function(exports, require, module, __filename, __dirname) { 
 module.exports = "<li></li><li></li><li></li><li></li>"
-}, {"__filename":"template.html","__dirname":"deps"}], 
-'demo/one': [function(exports, require, module, __filename, __dirname) { 
-    (function () {
-      var five = require('demo/dotpath/fi-ve');
-      var three = require('demo/three');
-      var two = require('demo/two');
-      var template = require('demo/deps/template.html');
+}, {"__filename":"","__dirname":""}], 
+'my-component/one': [function(exports, require, module, __filename, __dirname) { 
+    (function (process) {
+      var five = require('my-component/dotpath/fi-ve');
+      var three = require('my-component/three');
+      var two = require('my-component/two');
+      var template = require('my-component/deps/template.html');
       return function () {
         console.log(template);
       };
-    }());
-}, {"__filename":"one.js","__dirname":"."}], 
-'demo/deps/four': [function(exports, require, module, __filename, __dirname) { 
-    var inner = require('demo/dotpath/inner');
+    }({}));
+}, {"__filename":"","__dirname":""}], 
+'my-component/deps/four': [function(exports, require, module, __filename, __dirname) { 
+    var inner = require('my-component/dotpath/inner');
     module.exports = 'Yeah that\'s me, I like better CommonJS style' + inner;
-}, {"__filename":"four.js","__dirname":"deps"}], 
+}, {"__filename":"","__dirname":""}], 
 'external1': [function(exports, require, module, __filename, __dirname) { 
     var jquery = require('jquery');
     return 'i\'m external';
-}, {"__filename":"external1.js","__dirname":"external"}], 
-'demo/template.html': [function(exports, require, module, __filename, __dirname) { 
+}, {"__filename":"","__dirname":""}], 
+'my-component/template.html': [function(exports, require, module, __filename, __dirname) { 
 module.exports = "<div>test</div><div></div><div></div><div></div>"
-}, {"__filename":"template.html","__dirname":"."}], 
-'demo/main': [function(exports, require, module, __filename, __dirname) { 
-    var one = require('demo/one');
+}, {"__filename":"","__dirname":""}], 
+'my-component/main': [function(exports, require, module, __filename, __dirname) { 
+    var one = require('my-component/one');
     var jquery = require('jquery');
-    var four = require('demo/deps/four');
+    var four = require('my-component/deps/four');
     var ext1 = require('external1');
     var ext2 = require('external2');
-    var t1 = require('demo/template.html');
+    var t1 = require('my-component/template.html');
     require('d3');
     require(['a'], function () {
       var a = [];
     });
+    var a = 'test';
     return [
       one,
       four,
       t1
     ];
-}, {"__filename":"main.js","__dirname":"."}]
+}, {"__filename":"","__dirname":""}]
 }
 ,  function() { this.my = this.my || {};this.my.component = this.my.component || {}; return this.my.component }.call(this) 
 , [closure,window]
 )
 
-return __req('demo/main')
+return __req('my-component/main')
 
 }.bind({})))

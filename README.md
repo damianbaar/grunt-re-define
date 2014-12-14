@@ -15,15 +15,29 @@ module.exports = function(grunt) {
   grunt.initConfig({
     redefine: {
       "my-component": {
-          project: 'demo'
+          project: 'demo' //optional, when not defined target (i.e. my-component) will be taken
         , returns : 'demo/main.js'
         , wrapper: 'umd'
         , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
+
+        //import namespaces and exclude internal modules
+        //when object { 'window': ['d3'], 'custom.ns': ['custom/**'] }
+        //or an array ['window', etc...]
+        //namespace - global, reachable by internal require function within module
+        , imports: { "window": ['d3'] } 
+
+        //if you've got some AMD plugins which need to be removed when trying to make lib cross compatibile
         , excludeAMDModules: ['\.css$', 'domReady!']
-        , globals: {jquery:"parent.core.jquery"}
+
+        //mapping, internal require('jquery') -> (to) global = parent.core.jquery
+        //by default everything is attached to parent, in most cases window
+        , globals: {jquery:"core.jquery"}
+
+        //safe global for internal modules
+        //var my = my || {}; my.component = ...
         , namespace: "my.component"
-        , imports: ["window"] //import namespaces
+
         , showWarnings: false
         , development: true//enable/disable cache for faster builds
         , transforms: [
@@ -47,33 +61,42 @@ module.exports = function(grunt) {
 ```
 
 #### Configuration
-```
-module.exports = 
-  { names         : {amd: 'amd/name', global: 'global.name'}
+```json
+  { names         : { amd: 'amd/name', global: 'global.name' }
   , project       : '' //project name, adding a prefix to internal module name
   , returns       : ''
   , globals      : {} //external {lib:global}
 
   //working directory
-  , cwd           : ''
-  //define cutting points for modules { glob_pattern: file }
+  , cwd           : '.'
+  //define cutting points for modules { glob_pattern: file, ... }
   , slice         : {"**/**": "bundle.js"}
   //could be a folder (in case of many files) or just file, when not defined print output to console
   , output        : ''
   //base folder, all modules will be aligned to this one, like cwd: a, file: a/b/c, base: a/b, file -> c
-  , base          : '.'
+  , base          : ''
   //wrapper file 
   , wrapper       : 'default'
   //attach all bundled modules to namespace, foo.baz.bar is allowed
   , namespace: '' 
+  //skip dependencies from externals (won't be included in wrapper as external for all module definition, assume that dep will be taken from namespace)
+  , exclude: []
   //exclude specific AMD dependencies
   , excludeAMDModules : ['\.css$', 'require', 'modules', 'exports']
   //regexp to detect an AMD plugins, first we need to remove the plugin prefix to get a path
   , plugins      : ['^(text\/?)*!']
-  //import namespaces, if you need to take some deps from globals like jquery, define it as ['window']
+  //when name for dependency will resolved it will treat modules inside those folders as external
+  , discoverable : ['bower_components', 'node_modules']
+  //import namespaces, if you need to take some deps from exported namespace
   , imports: []
   //remap require calls, helpful when some libs have different reference to the same module
   , map: {}
+  //js extensions, needed for filename.with.dots.js
+  , jsExt: ['.js']
+  //check existence of main/dir file when referencing a dir, like require('folder') = folder/index.js
+  , dirExpanders: ['index.js']
+  //when project is missing, inserting current folder as a prefix for modules
+  , autoInsertFolder: true
   //format for escodegen
   , format: {
       indent: { style: '  ', base: 2 },
@@ -81,7 +104,12 @@ module.exports =
       compact: false,
       safeConcatenation: false
     }
-  , showWarnings: true
+  //export __filename, __dirname
+  , exportPaths: false 
+  , showWarnings: false
+  , tempFolder: './.tmp'
+  , autoCacheClean: false
+  , development: true
   }
 ```
 
