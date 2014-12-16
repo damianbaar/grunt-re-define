@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 ```
 
 #### Configuration
-```json
+```js
   { names         : { amd: 'amd/name', global: 'global.name' }
   , project       : '' //project name, adding a prefix to internal module name
   , returns       : ''
