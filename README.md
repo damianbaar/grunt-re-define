@@ -115,7 +115,7 @@ module.exports = function(grunt) {
 
 
 ### Custom template
-Here you can find [predefined](https://github.com/damianbaar/re-define/lib/templates) ones.
+Here you can find [predefined](https://github.com/damianbaar/re-define/tree/master/lib/templates) ones.
 ```
 module.exports = function(grunt) {
 
