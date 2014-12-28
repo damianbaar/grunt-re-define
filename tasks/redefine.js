@@ -24,12 +24,18 @@ module.exports = function(grunt) {
       var conf = redefine.config(_.omit(config, 'transforms'))
 
       conf.cwd = !!f.cwd ? f.cwd : '.'
+      conf.slice = config.slice || conf.slice
 
       var bundle = redefine.bundle(conf, config.transforms)
 
       bundle.pipe(through.obj(function(file, enc, next) {
-        grunt.log.writeln('File "' + f.dest + '" created.')
-        grunt.file.write(f.dest, file.contents)
+        var _p = _.keys(config.slice).length > 1 
+                    ? file.path 
+                    : (f.dest || file.path)
+
+        grunt.log.writeln('File "' + _p + '" created.')
+        grunt.file.write(_p, file.contents)
+
         next()
       }, function() {
         done()

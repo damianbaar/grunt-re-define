@@ -22,9 +22,9 @@ module.exports = function(grunt) {
         , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
-        , globals: {jquery:"core.jquery"}
+        , globals: {jquery:"_"}
         , namespace: "my.component"
-        , imports: { "window": ['d3'] }//import namespaces and exclude internal ns modules (could be a glob pattern)
+        , imports: { "window": ['d3','external2'] }//import namespaces and exclude internal ns modules (could be a glob pattern)
         , showWarnings: false
         , development: false//enable/disable cache for faster builds
         , transforms: [

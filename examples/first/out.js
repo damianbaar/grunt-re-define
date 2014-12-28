@@ -1,21 +1,19 @@
 ;(function (parent, factory){
-    var jquery =  parent.core.jquery
-    var external2 =  parent.external2
+    var jquery =  parent._
   
     parent["ns"] = parent["ns"] || {};
-    parent["ns"]["my_component"] = factory(jquery,external2);
+    parent["ns"]["my_component"] = factory(jquery);
 
-  }(this, function (jquery,external2) {
+  }(this, function (jquery) {
 
   var closure = {}
 
   closure['jquery'] = jquery
-  closure['external2'] = external2
   
 
 var __req = 
 
-//externals: jquery,external2 
+//externals: jquery 
 (function (modules, namespace, imports) {
   function __req(name){
     if(!namespace[name]) {
