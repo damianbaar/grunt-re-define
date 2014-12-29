@@ -1,7 +1,7 @@
 {
   "name": "grunt-re-define",
   "description": "anything to anything converter",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "homepage": "https://github.com/damianbaar/grunt-re-define",
   "author": {
     "name": "Damian Baar",
@@ -41,6 +41,7 @@
     "grunt": "^0.4.5",
     "lodash": "^2.4.1",
     "re-define": "^1.13.0",
+    "re-define-include-external": "^0.3.0",
     "re-define-module": "^0.1.2",
     "through2": "^0.4.1"
   }
