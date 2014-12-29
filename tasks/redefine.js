@@ -1,8 +1,8 @@
 var redefine    = require('re-define')
-  , _           = require('lodash')
   , through     = require('through2')
   , path        = require('path')
   , Module      = require('re-define-module')
+  , _           = require('lodash')
 
 module.exports = function(grunt) {
 
@@ -50,10 +50,7 @@ module.exports = function(grunt) {
       f.src.forEach(function(fp) {
         var filepath = path.resolve(f.cwd || conf.cwd, fp)
 
-        bundle.write(Module({ cwd: path.resolve(process.cwd(), f.cwd || conf.cwd)
-                            , base: path.dirname(filepath)
-                            , path: path.resolve(filepath)
-                            }))
+        bundle.write(Module({ path: path.resolve(filepath) }))
       })
     })
   })
