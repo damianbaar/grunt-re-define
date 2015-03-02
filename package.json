@@ -40,8 +40,8 @@
   "dependencies": {
     "grunt": "^0.4.5",
     "lodash": "^2.4.1",
-    "re-define": "0.0.0-alpha",
-    "re-define-include-external": "^0.3.0",
+    "re-define": "0.0.1-alpha",
+    "re-define-include-external": "^0.3.3",
     "re-define-module": "^0.1.2",
     "through2": "^0.4.1"
   }
