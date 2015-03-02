@@ -1,7 +1,7 @@
 require(
-  [ "one"
+  [ "./one"
   , "jquery"
-  , "deps/four"
+  , "./deps/four"
   , "external1"
   , "external2"
   , "text!./template.html"

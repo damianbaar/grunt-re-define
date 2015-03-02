@@ -1,7 +1,7 @@
 define(
-  [ "dotpath/fi-ve"
-  , "three"
-  , "two"
+  [ "./dotpath/fi-ve"
+  , "./three"
+  , "./two"
   , "text!./deps/template.html"
   , "css!./styles.css"
   ]
