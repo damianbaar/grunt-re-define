@@ -1,7 +1,7 @@
 {
   "name": "grunt-re-define",
   "description": "anything to anything converter",
-  "version": "0.0.1-alpha",
+  "version": "0.0.3-alpha",
   "homepage": "https://github.com/damianbaar/grunt-re-define",
   "author": {
     "name": "Damian Baar",
