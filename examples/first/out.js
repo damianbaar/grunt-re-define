@@ -1,4 +1,5 @@
-//re-define version:0.0.3-alpha
+//re-define version:1.14.0
+//library version:0.0.3-alpha
 //externals: jquery
 ;(function (parent, factory){
     var jquery =  parent._
