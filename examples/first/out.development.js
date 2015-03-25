@@ -1,17 +1,19 @@
 //re-define version:1.14.4
-//library version:0.4.0
-//externals: jquery
+//library version:0.5.0
+//externals: jquery,external1
 ;(function (parent, factory){
     var jquery =  parent._
+    var external1 =  parent.external1
   
-    parent["my"] = parent["my"] || {};
-    parent["my"]["component"] = factory(jquery);
+    parent["ns"] = parent["ns"] || {};
+    parent["ns"]["my_component"] = factory(jquery,external1);
 
-  }(this, function (jquery) {
+  }(this, function (jquery,external1) {
 
   var closure = {}
 
   closure['jquery'] = jquery
+  closure['external1'] = external1
   
 
 var __req = (function (modules, namespace, imports) {
@@ -52,25 +54,25 @@ var __req = (function (modules, namespace, imports) {
   return __req;
 })
 ({ 
-'my-component/dotpath/inner': [function(exports,require,module) { 
+'my-component/dotpath/inner': [function(exports,require,module,define) { 
     return 'inner';
-}], 
-'my-component/dotpath/fi-ve': [function(exports,require,module) { 
+},null], 
+'my-component/dotpath/fi-ve': [function(exports,require,module,define) { 
     var inner = require('my-component/dotpath/inner');
     var t;
     return inner;
-}], 
-'my-component/three': [function(exports,require,module) { 
+},null], 
+'my-component/three': [function(exports,require,module,define) { 
     return { hello: 'Yo!' };
-}], 
-'my-component/two': [function(exports,require,module) { 
+},null], 
+'my-component/two': [function(exports,require,module,define) { 
     var $ = require('jquery');
     module.exports = 'two';
-}], 
+},null], 
 'my-component/deps/template.html': [function(exports,require,module) { 
 module.exports = "<li></li><li></li><li></li><li></li>"
 }], 
-'my-component/one': [function(exports,require,module) { 
+'my-component/one': [function(exports,require,module,define) { 
     (function (process) {
       var five = require('my-component/dotpath/fi-ve');
       var three = require('my-component/three');
@@ -80,14 +82,10 @@ module.exports = "<li></li><li></li><li></li><li></li>"
         console.log(template);
       };
     }({}));
-}], 
+},null], 
 'my-component/deps/four': [function(exports,require,module) { 
     var inner = require('my-component/dotpath/inner');
     module.exports = 'Yeah that\'s me, I like better CommonJS style' + inner;
-}], 
-'external1': [function(exports,require,module) { 
-    var jquery = require('jquery');
-    return 'i\'m external';
 }], 
 'my-component/template.html': [function(exports,require,module) { 
 module.exports = "<div>test</div><div></div><div></div><div></div>"

@@ -5,7 +5,7 @@ var includeExternal = require('re-define-include-external')
 module.exports = function(grunt) {
 
   grunt.registerTask('default', ['demo'])
-  grunt.registerTask('dev', ['watch'])
+  grunt.registerTask('dev', ['redefine:my-component:development', 'watch'])
   grunt.registerTask('demo', ['redefine:my-component'])
   grunt.registerTask('prod', ['redefine:my-component:production'])
 
@@ -31,6 +31,7 @@ module.exports = function(grunt) {
           , showWarnings: true
           , wrapper: 'custom'
           , dest: './examples/first/out.development.js'
+          , transforms: [ includeExternal({skip:['jquery','d3']}) ]
           },
           production: {
             development: false
@@ -41,7 +42,6 @@ module.exports = function(grunt) {
         }
         , transforms: [
             includeExternal({
-                // skip: ['d3', 'jquery']
                 discoverable: ['external']
               , external: { external1:"/external/external1.js" }
             }),

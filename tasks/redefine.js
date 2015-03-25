@@ -29,12 +29,13 @@ module.exports = function(grunt) {
     }
 
     this.files.forEach(function(f) {
-      var conf = redefine.config(_.extend(_.omit(config, 'transforms'), buildConfig))
+      var conf = redefine.config(_.extend(_.omit(config, 'transforms')
+                                         ,_.omit(buildConfig, 'transforms')))
 
       conf.cwd = !!f.cwd ? f.cwd : '.'
       conf.slice = config.slice || conf.slice
 
-      var bundle = redefine.bundle(conf, config.transforms)
+      var bundle = redefine.bundle(conf, _.extend(config.transforms, buildConfig && buildConfig.transforms))
 
       bundle.pipe(through.obj(function(file, enc, next) {
         var _p = _.keys(config.slice).length > 1 
