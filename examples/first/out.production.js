@@ -1,8 +1,23 @@
 //re-define version:1.14.4
 //library version:0.4.0
 //externals: jquery
-require = (function() {
-return (function (modules, namespace, imports) {
+;(function (parent, factory){
+  if (typeof define === 'function' && define.amd) {
+    define('ns/my-component', ['jquery'], factory)
+  } else if (typeof module === "object" && !!module.exports) {
+    module.exports = factory(require('jquery'))
+  } else {
+    var jquery =  parent._
+  
+    parent["ns"] = parent["ns"] || {};
+    parent["ns"]["my_component"] = factory(jquery);
+
+  }
+  })(this, function (jquery) {
+  var closure = {}
+
+  closure['jquery'] = jquery
+  var __req = (function (modules, namespace, imports) {
   var __oldReq = typeof require == "function" && require
 
   function __req(name){
@@ -100,6 +115,9 @@ module.exports = "<div>test</div><div></div><div></div><div></div>"
 }]
 }
 ,  function() { this.my = this.my || {};this.my.component = this.my.component || {}; return this.my.component }.call(this) 
-, typeof window === 'undefined' ? [] : [window]
+, typeof window === 'undefined' ? [] : [closure,window]
 )
-})()
+
+return __req('my-component/main')
+
+})

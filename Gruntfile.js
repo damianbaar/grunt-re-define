@@ -7,6 +7,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['demo'])
   grunt.registerTask('dev', ['watch'])
   grunt.registerTask('demo', ['redefine:my-component'])
+  grunt.registerTask('prod', ['redefine:my-component:production'])
 
   grunt.initConfig({
     redefine: {
@@ -18,15 +19,26 @@ module.exports = function(grunt) {
 
       "my-component": {
           returns : './main.js'
-        , wrapper: 'custom'
         , base: '/lib'
         , names: { amd:"ns/my-component", global:"ns.my_component"}
         , excludeAMDModules: ['\.css$', 'domReady!']
         , globals: {jquery:"_"}
         , namespace: "my.component"
         , imports: { "window": ['d3','external2'] }//import namespaces and exclude internal ns modules (could be a glob pattern)
-        , showWarnings: false
-        , development: false//enable/disable cache for faster builds
+        , builds: {
+          development: {
+            development: true//enable/disable cache for faster builds
+          , showWarnings: true
+          , wrapper: 'custom'
+          , dest: './examples/first/out.development.js'
+          },
+          production: {
+            development: false
+          , showWarnings: false
+          , wrapper: 'umd'
+          , dest: './examples/first/out.production.js'
+          }
+        }
         , transforms: [
             includeExternal({
                 // skip: ['d3', 'jquery']
@@ -46,7 +58,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['./examples/first/**/*.js', '!./examples/first/out.js'],
-        tasks: ['redefine'],
+        tasks: ['redefine:my-component:development'],
         options: {
           spawn: false
         }

@@ -11,6 +11,14 @@ module.exports = function(grunt) {
       , config = _.merge(_.omit(this.data, 'files'), this.options())
       , base = config.base
 
+    var args = this.nameArgs.split(':')
+      , idx = args.indexOf(this.target)
+      , mode = args[idx + 1]
+      , buildConfig = config.builds[mode]
+
+    grunt.log.writeln('Running in:', mode ? mode : 'normal', 'mode.'
+                     , 'Configuration', mode ? (buildConfig ? 'exists.' : 'not exists!') : 'exists')
+
     if(!config.project) config.project = this.target
     if(!_.isEmpty(config.imports) && !_.isArray(config.imports)) {
       config.exclude = 
@@ -21,7 +29,7 @@ module.exports = function(grunt) {
     }
 
     this.files.forEach(function(f) {
-      var conf = redefine.config(_.omit(config, 'transforms'))
+      var conf = redefine.config(_.extend(_.omit(config, 'transforms'), buildConfig))
 
       conf.cwd = !!f.cwd ? f.cwd : '.'
       conf.slice = config.slice || conf.slice
@@ -31,7 +39,7 @@ module.exports = function(grunt) {
       bundle.pipe(through.obj(function(file, enc, next) {
         var _p = _.keys(config.slice).length > 1 
                     ? file.path 
-                    : (f.dest || file.path)
+                    : ((buildConfig && buildConfig.dest) || f.dest || file.path)
 
         grunt.log.writeln('File "' + _p + '" created.')
         grunt.file.write(_p, file.contents)

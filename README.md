@@ -60,6 +60,32 @@ module.exports = function(grunt) {
 }
 ```
 
+#### Conditional builds
+
+To run conditional builds / config overrides, you have to provide `builds` params as follows (keys are arbitrary)
+
+```
+  'my-component': {
+    ...
+    builds: {
+      development: {
+        development: true//enable/disable cache for faster builds
+      , showWarnings: true
+      , wrapper: 'custom'
+      , dest: './examples/first/out.development.js'
+      },
+      production: {
+        development: false
+      , showWarnings: false
+      , wrapper: 'umd'
+      , dest: './examples/first/out.production.js'
+      }
+    }
+  }
+```
+
+Normal mode is run by default, to define normal mode as grunt task we would go with 'redefine:my-component', however to run custom build you have to add extra parameter to grunt task name, like `redefine:my-component:development' or `redefine:my-component:production'
+
 #### Configuration
 ```js
   { names         : { amd: 'amd/name', global: 'global.name' }
