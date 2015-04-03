@@ -52,6 +52,18 @@ module.exports = function(grunt) {
         , src: ['./lib/main.js']
         , cwd: './examples/first'
         , dest : './examples/first/out.js'
+      },
+
+      "my-app": {
+          base: '/src'
+        , names: { amd:"my-app", global:"ns.my-app"}
+        , globals: { jquery:"$" }
+        , transforms: [
+            includeExternal({ discoverable: ['vendor', 'src'] })
+        ]
+        , src: ['./src/index.js']
+        , cwd: './examples/my-app'
+        , dest : './examples/my-app/out.js'
       }
     },
 
