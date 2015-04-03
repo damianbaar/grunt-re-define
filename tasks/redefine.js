@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     var args = this.nameArgs.split(':')
       , idx = args.indexOf(this.target)
       , mode = args[idx + 1]
-      , buildConfig = config.builds[mode]
+      , buildConfig = config.builds ? config.builds[mode] : null
 
     grunt.log.writeln('Running in:', mode ? mode : 'normal', 'mode.'
                      , 'Configuration', mode ? (buildConfig ? 'exists.' : 'not exists!') : 'exists')

@@ -1,5 +1,5 @@
-//re-define version:1.14.4
-//library version:0.5.0
+//re-define version:1.14.5
+//library version:0.5.1
 //externals: jquery
 require = (function() {
 return (function (modules, namespace, imports) {
